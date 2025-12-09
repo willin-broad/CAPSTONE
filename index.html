@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone Project | Personal Portfolio</title>
+    <meta name="description"
+        content="Capstone Project Portfolio showcasing autobiography, innovation, culture, and professional achievements.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container hero-content">
+            <span class="hero-subtitle">Capstone Project Portfolio</span>
+            <h1>Excellence in <br>Innovation & Culture</h1>
+            <p style="max-width: 600px; margin: 2rem auto;">
+                A comprehensive showcase of academic growth, cultural heritage, and professional development.
+            </p>
+            <a href="#resume" class="btn btn-primary">View Portfolio</a>
+        </div>
+    </section>
+
+    <!-- 1. Resume -->
+    <section id="resume" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">01</span>
+                <h2>Professional Résumé</h2>
+                <p>Curriculum Vitae available in three languages.</p>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>English</h3>
+                        <p>Standard professional version.</p>
+                        <button class="btn btn-outline"
+                            onclick="openPreview('English Resume', 'assets/resume_en.pdf')">View Resume</button>
+                    </div>
+                    <div class="card">
+                        <h3>Kiswahili</h3>
+                        <p>Wasifu wa Kitaaluma.</p>
+                        <button class="btn btn-outline"
+                            onclick="openPreview('Kiswahili Resume', 'assets/resume_sw.pdf')">Soma Wasifu</button>
+                    </div>
+                    <div class="card">
+                        <h3>Indigenous</h3>
+                        <p>Native language version.</p>
+                        <button class="btn btn-outline"
+                            onclick="openPreview('Indigenous Resume', 'assets/resume_ind.pdf')">View Resume</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2 & 3. Autobiography -->
+    <section id="autobiography" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">02</span>
+                <h2>Autobiographical Journey</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>The Essay</h3>
+                        <p>A 20-30 page reflection on background, growth, and academic journey.</p>
+                        <button class="btn btn-primary"
+                            onclick="openPreview('Autobiographical Essay', 'assets/autobiography.pdf')">Read
+                            Essay</button>
+                    </div>
+                    <div class="card">
+                        <h3>The Presentation</h3>
+                        <p>Summary presentation (8-12 slides) of the autobiographical journey.</p>
+                        <button class="btn btn-outline"
+                            onclick="openPreview('Autobiography Slides', 'assets/auto_slides.pdf')">View Slides</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4 & 5. Innovation -->
+    <section id="innovation" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">04</span>
+                <h2>Innovation & Invention</h2>
+                <div class="grid-2">
+                    <div>
+                        <div class="video-placeholder"
+                            onclick="openPreview('Innovation Video', 'assets/innovation_video.mp4', 'video')">
+                            <div class="play-btn">▶</div>
+                        </div>
+                        <h3>Innovation Video</h3>
+                        <p>20-minute explanation of the field innovation.</p>
+                    </div>
+                    <div class="card" style="height: fit-content; align-self: center;">
+                        <h3>Project Abstract</h3>
+                        <p>Multilingual abstract (English, Kiswahili, Indigenous).</p>
+                        <button class="btn btn-outline" style="margin-bottom: 1rem;"
+                            onclick="openPreview('Innovation Abstract', 'assets/innovation_abstract.pdf')">Read
+                            Abstract</button>
+                        <hr style="border-color: var(--glass-border); margin: 1rem 0;">
+                        <h3>Presentation</h3>
+                        <p>Summary slides of the innovation.</p>
+                        <button class="btn btn-primary"
+                            onclick="openPreview('Innovation Slides', 'assets/innovation_slides.pdf')">View
+                            Slides</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6 & 7. African Culture -->
+    <section id="culture" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">06</span>
+                <h2>African Culture</h2>
+                <div class="grid-2">
+                    <div class="card" style="height: fit-content; align-self: center; order: 2;">
+                        <h3>Cultural Relevance</h3>
+                        <p>Exploring the intersection of heritage and specialization.</p>
+                        <button class="btn btn-primary"
+                            onclick="openPreview('Culture Presentation', 'assets/culture_slides.pdf')">View
+                            Presentation</button>
+                    </div>
+                    <div style="order: 1;">
+                        <div class="video-placeholder"
+                            onclick="openPreview('Culture Video', 'assets/culture_video.mp4', 'video')">
+                            <div class="play-btn">▶</div>
+                        </div>
+                        <h3>Culture Video</h3>
+                        <p>20-minute exploration of African cultural aspects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Modern Challenge -->
+    <section id="challenge" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">08</span>
+                <h2>Modern Societal Challenge</h2>
+                <div class="video-placeholder" style="max-width: 800px; margin: 0 auto;"
+                    onclick="openPreview('Modern Challenge Video', 'assets/challenge_video.mp4', 'video')">
+                    <div class="play-btn">▶</div>
+                </div>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <h3>Challenge & Solution</h3>
+                    <p>Analysis of a contemporary issue and proposed solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Photo Essay -->
+    <section id="photos" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">09</span>
+                <h2>Photographic Essay</h2>
+                <p>Visual storytelling of issues in the African community.</p>
+                <div class="gallery-grid">
+                    <!-- Placeholders for 10-20 photos. Showing 6 for layout. -->
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 1%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 2%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 3%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 4%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 5%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 6%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Online Presence -->
+    <section id="online" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">10</span>
+                <h2>Online Presence</h2>
+                <p>Connect on professional platforms.</p>
+                <div class="grid-3">
+                    <a href="#" class="card" style="text-align: center; display: block;">
+                        <h3>LinkedIn</h3>
+                        <p>Professional Profile</p>
+                    </a>
+                    <a href="#" class="card" style="text-align: center; display: block;">
+                        <h3>Blog</h3>
+                        <p>Personal Thoughts</p>
+                    </a>
+                    <a href="#" class="card" style="text-align: center; display: block;">
+                        <h3>Vlog/YouTube</h3>
+                        <p>Video Content</p>
+                    </a>
+                    <a href="#" class="card" style="text-align: center; display: block;">
+                        <h3>Portfolio</h3>
+                        <p>Design Work</p>
+                    </a>
+                    <a href="#" class="card" style="text-align: center; display: block;">
+                        <h3>Twitter/X</h3>
+                        <p>Industry Updates</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Capstone Project Portfolio. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Video/File Preview Modal -->
+    <div id="previewModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title">File Preview</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <!-- Content injected via JS -->
+            </div>
+            <div class="modal-footer">
+                <a id="downloadLink" href="#" class="btn btn-primary" download target="_blank">Download File</a>
+                <button class="btn btn-outline" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
