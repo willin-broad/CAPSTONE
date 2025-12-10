@@ -285,6 +285,94 @@ a {
     transform: scale(1.05);
 }
 
+/* Social Cards */
+.social-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-width: 150px;
+    height: 150px;
+    /* Square aspect */
+    text-align: center;
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    color: var(--text-secondary);
+}
+
+.social-card svg {
+    transition: transform var(--transition-smooth);
+}
+
+.social-card span {
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+/* Signature Colors & Hover Effects */
+.social-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.social-card:hover {
+    transform: translateY(-5px) scale(1.05);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.social-card:hover::before {
+    opacity: 1;
+}
+
+.social-card:hover svg {
+    transform: scale(1.1);
+    stroke: #fff;
+}
+
+/* Individual Brand Colors (Muted/Glass Style) */
+.social-card.github:hover {
+    background: rgba(36, 41, 46, 0.6);
+    box-shadow: 0 8px 32px rgba(36, 41, 46, 0.3);
+}
+
+.social-card.facebook:hover {
+    background: rgba(24, 119, 242, 0.6);
+    box-shadow: 0 8px 32px rgba(24, 119, 242, 0.3);
+}
+
+.social-card.twitter:hover {
+    background: rgba(29, 161, 242, 0.6);
+    box-shadow: 0 8px 32px rgba(29, 161, 242, 0.3);
+}
+
+.social-card.instagram:hover {
+    background: linear-gradient(45deg, rgba(245, 133, 41, 0.6), rgba(221, 42, 123, 0.6), rgba(129, 52, 175, 0.6));
+    box-shadow: 0 8px 32px rgba(221, 42, 123, 0.3);
+}
+
+.social-card.youtube:hover {
+    background: rgba(255, 0, 0, 0.6);
+    box-shadow: 0 8px 32px rgba(255, 0, 0, 0.3);
+}
+
 /* Footer */
 footer {
     border-top: 1px solid var(--glass-border);
