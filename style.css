@@ -442,9 +442,9 @@ footer {
 
 .modal-content {
     background: var(--bg-secondary);
-    width: 90%;
-    max-width: 1000px;
-    height: 80vh;
+    width: 95%;
+    max-width: 1200px;
+    height: 90vh;
     border-radius: 20px;
     border: 1px solid var(--glass-border);
     display: flex;
@@ -508,7 +508,48 @@ footer {
     padding: 1rem;
     border-top: 1px solid var(--glass-border);
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     gap: 1rem;
     background: rgba(255, 255, 255, 0.02);
 }
+
+.pdf-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pdf-nav button {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: 0.9rem;
+}
+
+.pdf-nav button:hover:not(:disabled) {
+    background: var(--accent-gold);
+    color: var(--bg-primary);
+    border-color: var(--accent-gold);
+}
+
+.pdf-nav button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Footer */

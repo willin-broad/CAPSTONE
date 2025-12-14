@@ -163,17 +163,26 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Modal Logic
+let currentPDF = null;
+let currentPage = 1;
+let totalPages = 0;
+
 function openPreview(title, contentUrl, type = 'pdf') {
     const modal = document.getElementById('previewModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
     const downloadLink = document.getElementById('downloadLink');
+    const pdfNav = document.getElementById('pdfNav');
 
     modalTitle.textContent = title;
     downloadLink.href = contentUrl;
 
     // Clear previous content
     modalBody.innerHTML = '';
+    pdfNav.style.display = 'none';
+    currentPDF = null;
+    currentPage = 1;
+    totalPages = 0;
 
     if (type === 'video') {
         // For video, use iframe or video tag
@@ -186,47 +195,71 @@ function openPreview(title, contentUrl, type = 'pdf') {
         const img = document.createElement('img');
         img.src = contentUrl;
         modalBody.appendChild(img);
+    } else if (type === 'powerpoint' || type === 'ppt') {
+        // PowerPoint preview using Office Online Viewer
+        renderPowerPoint(contentUrl, modalBody);
     } else {
         // Use PDF.js for PDF rendering
+        pdfNav.style.display = 'flex';
         renderPDF(contentUrl, modalBody);
     }
 
     modal.classList.add('active');
 }
 
-// PDF.js rendering function
+// PowerPoint rendering function
+function renderPowerPoint(url, container) {
+    // Check if URL is absolute (for GitHub Pages)
+    const isAbsoluteUrl = url.startsWith('http://') || url.startsWith('https://');
+
+    if (!isAbsoluteUrl) {
+        // For local files or relative paths, show instructions
+        container.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #fff; text-align: center; padding: 2rem;">
+                <div>
+                    <h3>PowerPoint Preview</h3>
+                    <p style="margin: 1rem 0;">PowerPoint files can be previewed after deploying to GitHub Pages.</p>
+                    <p style="font-size: 0.9rem; color: #999;">For now, please use the download button to view this file.</p>
+                    <div style="margin-top: 2rem; padding: 1rem; background: rgba(212, 175, 55, 0.1); border-radius: 8px; border: 1px solid var(--accent-gold);">
+                        <p style="font-size: 0.85rem; color: var(--accent-gold);"><strong>Alternative Options:</strong></p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">1. Upload to Google Drive and use shareable link</p>
+                        <p style="font-size: 0.85rem;">2. Convert to PDF for universal preview</p>
+                        <p style="font-size: 0.85rem;">3. Deploy to GitHub Pages for Office Viewer</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else {
+        // Use Microsoft Office Online Viewer for absolute URLs
+        const viewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}`;
+        const iframe = document.createElement('iframe');
+        iframe.src = viewerUrl;
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        container.appendChild(iframe);
+    }
+}
+
+// PDF.js rendering function with page navigation
 async function renderPDF(url, container) {
     try {
         // Create canvas container
         const canvasContainer = document.createElement('div');
-        canvasContainer.style.cssText = 'overflow-y: auto; height: 100%; padding: 1rem; background: #1a1a1a;';
+        canvasContainer.id = 'pdfCanvasContainer';
+        canvasContainer.style.cssText = 'overflow-y: auto; height: 100%; padding: 1rem; background: #1a1a1a; display: flex; align-items: center; justify-content: center;';
         container.appendChild(canvasContainer);
 
         // Load the PDF
         const loadingTask = pdfjsLib.getDocument(url);
-        const pdf = await loadingTask.promise;
+        currentPDF = await loadingTask.promise;
+        totalPages = currentPDF.numPages;
 
-        // Render all pages
-        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-            const page = await pdf.getPage(pageNum);
-            const viewport = page.getViewport({ scale: 1.5 });
+        // Update page info
+        updatePageInfo();
 
-            // Create canvas for this page
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-            canvas.style.cssText = 'display: block; margin: 0 auto 1rem auto; box-shadow: 0 2px 8px rgba(0,0,0,0.3);';
-
-            canvasContainer.appendChild(canvas);
-
-            // Render page
-            const renderContext = {
-                canvasContext: context,
-                viewport: viewport
-            };
-            await page.render(renderContext).promise;
-        }
+        // Render first page
+        await renderPage(currentPage);
     } catch (error) {
         console.error('Error loading PDF:', error);
         container.innerHTML = `
@@ -238,7 +271,55 @@ async function renderPDF(url, container) {
                 </div>
             </div>
         `;
+        document.getElementById('pdfNav').style.display = 'none';
     }
+}
+
+async function renderPage(pageNum) {
+    if (!currentPDF) return;
+
+    const canvasContainer = document.getElementById('pdfCanvasContainer');
+    canvasContainer.innerHTML = ''; // Clear previous page
+
+    const page = await currentPDF.getPage(pageNum);
+    const viewport = page.getViewport({ scale: 1.5 });
+
+    // Create canvas for this page
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+    canvas.style.cssText = 'display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.3);';
+
+    canvasContainer.appendChild(canvas);
+
+    // Render page
+    const renderContext = {
+        canvasContext: context,
+        viewport: viewport
+    };
+    await page.render(renderContext).promise;
+}
+
+function changePage(delta) {
+    if (!currentPDF) return;
+
+    const newPage = currentPage + delta;
+    if (newPage >= 1 && newPage <= totalPages) {
+        currentPage = newPage;
+        renderPage(currentPage);
+        updatePageInfo();
+    }
+}
+
+function updatePageInfo() {
+    const pageInfo = document.getElementById('pageInfo');
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
+
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
 }
 
 function closeModal() {

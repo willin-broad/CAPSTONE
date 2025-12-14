@@ -275,8 +275,15 @@
                 <!-- Content injected via JS -->
             </div>
             <div class="modal-footer">
-                <a id="downloadLink" href="#" class="btn btn-primary" download target="_blank">Download File</a>
-                <button class="btn btn-outline" onclick="closeModal()">Close</button>
+                <div class="pdf-nav" id="pdfNav" style="display: none;">
+                    <button id="prevPage" onclick="changePage(-1)">← Previous</button>
+                    <span class="page-info" id="pageInfo">Page 1 of 1</span>
+                    <button id="nextPage" onclick="changePage(1)">Next →</button>
+                </div>
+                <div class="modal-actions">
+                    <a id="downloadLink" href="#" class="btn btn-primary" download target="_blank">Download File</a>
+                    <button class="btn btn-outline" onclick="closeModal()">Close</button>
+                </div>
             </div>
         </div>
     </div>
